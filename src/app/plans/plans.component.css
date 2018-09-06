@@ -1,0 +1,14 @@
+ul {
+  padding:0;
+  list-style-type:none;
+}
+ul li {
+  margin-bottom:2px;
+  background-color:whitesmoke;
+}
+p{
+  text-align:center;
+}
+.flx{
+  display:flex;
+}

@@ -20,14 +20,15 @@
   <div class="form-group row">
     <label for="example-date-input" class="col-2 col-form-label">From</label>
     <div class="col-10">
-      <input class="form-control" [(ngModel)]="holiday_form.from " name="holiday_form_datefrom" type="date">
+      <input class="form-control" [(ngModel)]="holiday_form.from " min="{{current_date}}" name="holiday_form_datefrom" type="date">
     </div>
   </div>
   <div class="form-group row">
     <label for="example-date-input" class="col-2 col-form-label">To</label>
     <div class="col-10">
-      <input class="form-control" [(ngModel)]="holiday_form.to " name="holiday_form_dateto" type="date">
+      <input class="form-control" [(ngModel)]="holiday_form.to " min="{{current_date}}" name="holiday_form_dateto" type="date">
     </div>
   </div>
-  <button (click)="addHoliday()">ADD</button>
+  <button (click)="addHoliday()" type="button" class="btn btn-primary">ADD</button>
 </form>
+<p *ngIf="add_holiday_info">{{add_holiday_info}}</p>

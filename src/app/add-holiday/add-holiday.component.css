@@ -1,0 +1,11 @@
+.btn-primary{
+  display:block;
+  padding:10px;
+  width:50%;
+  margin: 0 auto;
+}
+p{
+  margin: 10px;
+  text-align: center;
+  color: #ff9809;
+}

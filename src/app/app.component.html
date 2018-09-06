@@ -1,9 +1,12 @@
 <header>
   <nav>
     <ul>
-      <li><a [routerLink]="['/plans']">Plany</a></li>
-      <li><a [routerLink]="['/add-holiday']">Add new Holiday</a></li>
+      <li [routerLink]="['/plans']">Plany</li>
+      <li [routerLink]="['/add-holiday']">Add new Holiday</li>
     </ul>
   </nav>
 </header>
-<router-outlet></router-outlet>
+<main>
+  <router-outlet></router-outlet>
+</main>
+
