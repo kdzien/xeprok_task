@@ -1,13 +1,13 @@
 import { Holiday } from './../models/Holiday';
 import { Component, OnInit } from '@angular/core';
-import { HolidaysServiceService } from '../services/holidays-service.service';
+import { HolidayService } from '../services/holiday.service';
 
 @Component({
-  selector: 'app-add-holiday',
-  templateUrl: './add-holiday.component.html',
-  styleUrls: ['./add-holiday.component.css']
+  selector: 'app-new-holiday',
+  templateUrl: './new-holiday.component.html',
+  styleUrls: ['./new-holiday.component.css']
 })
-export class AddHolidayComponent implements OnInit {
+export class NewHolidayComponent implements OnInit {
   private current_date = new Date().toISOString().split('T')[0];
   private add_holiday_info = '';
   private holiday_form = {
@@ -17,11 +17,12 @@ export class AddHolidayComponent implements OnInit {
     from: this.current_date,
     to: this.current_date,
   }
-  constructor(private holidayService: HolidaysServiceService) { }
+  constructor(private holidayService: HolidayService) { }
 
   ngOnInit() {
   }
   addHoliday(): void {
+    this.add_holiday_info = 'Dodajawanie urlopu...';
     const {name, surename, team, from, to} = this.holiday_form;
     const new_holiday = new Holiday(name, surename, team, new Date(from), new Date(to));
     this.holidayService.addHoliday(new_holiday).then(response => {

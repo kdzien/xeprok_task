@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { AddHolidayComponent } from './add-holiday/add-holiday.component';
+import { NewHolidayComponent } from './new-holiday/new-holiday.component';
 import { PlansComponent } from './plans/plans.component';
 import { PlanComponent } from './plan/plan.component';
 import { app_routes } from './app.routes';
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    AddHolidayComponent,
+    NewHolidayComponent,
     PlansComponent,
     PlanComponent
   ],

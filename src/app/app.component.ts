@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HolidaysServiceService } from './services/holidays-service.service';
+import { HolidayService } from './services/holiday.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HolidaysServiceService]
+  providers: [HolidayService]
 })
 export class AppComponent {
   title = 'app';

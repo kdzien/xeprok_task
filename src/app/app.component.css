@@ -10,6 +10,9 @@ nav ul li {
   padding:20px;
   cursor:pointer;
 }
+nav ul li:focus {
+  outline:none;
+}
 main{
   margin-top:30px;
 }

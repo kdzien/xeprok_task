@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HolidaysServiceService } from '../services/holidays-service.service';
+import { HolidayService } from '../services/holiday.service';
 import { Holiday } from './../models/Holiday';
 
 @Component({
@@ -9,11 +9,10 @@ import { Holiday } from './../models/Holiday';
 })
 export class PlansComponent implements OnInit {
   private holidays: Array<Holiday>;
-  constructor(private holidayService: HolidaysServiceService) { }
+  constructor(private holidayService: HolidayService) { }
 
   ngOnInit() {
     this.holidayService.getHolidays().then(holidays => {
-      console.log(holidays)
       this.holidays = holidays;
     });
   }

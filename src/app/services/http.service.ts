@@ -15,11 +15,9 @@ export class HttpService {
   }
 
   getHolidays(): Observable<Array<Holiday>>{
-    return this.http.get(this.URL_DB, {params:this.param}) 
+    return this.http.get<Array<Holiday>>(this.URL_DB, {params:this.param})
   }
-  saveHoliday(holiday: Holiday){
-    this.http.post(this.URL_DB, holiday, { params: this.param}).subscribe(list => {
-      console.log(list)
-    })
+  saveHoliday(holiday: Holiday): Observable<Holiday>{
+    return  this.http.post<Holiday>(this.URL_DB, holiday, { params: this.param})
   }
 }

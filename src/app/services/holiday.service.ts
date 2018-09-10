@@ -5,14 +5,14 @@ import { HttpService } from 'src/app/services/http.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HolidaysServiceService {
+export class HolidayService {
 
   private holidays: Array<Holiday> = [];
   constructor(private httpService: HttpService) {}
 
   getHolidays(): Promise<any>{
     return new Promise((resolve,reject) => {
-      this.httpService.getHolidays().subscribe( holidays => {
+      this.httpService.getHolidays().subscribe(holidays => {
         this.holidays = holidays.map(holiday => new Holiday(holiday.name,holiday.surename,holiday.team, new Date(holiday.from), new Date(holiday.to)));
         resolve(this.holidays)
       })
@@ -25,8 +25,11 @@ export class HolidaysServiceService {
           reject('Data do jest mniejsza niż data od');
         }
         if (this.checkCorrectivity(holiday, this.holidays)) {
-          this.httpService.saveHoliday(holiday)
-          resolve('Dodałes urlop');
+          this.httpService.saveHoliday(holiday).subscribe(data => {
+            resolve()
+          },err=>{
+            reject(`Problem z połączeniem: ${err}`);
+          })
         } else {
           reject('Nie możesz wziąć urlopu w tym terminie');
         }      
@@ -40,7 +43,6 @@ export class HolidaysServiceService {
   }
 }
 Date.prototype.isBetween = function(from, to) {
-  console.log(this);
   if(this >= from && this <= to) {
     return true;
   }
