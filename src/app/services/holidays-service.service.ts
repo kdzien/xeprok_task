@@ -1,13 +1,14 @@
 import { Holiday } from './../models/Holiday';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { HttpService } from 'src/app/services/http.service';
 @Injectable({
   providedIn: 'root'
 })
 export class HolidaysServiceService {
 
   private holidays: Array<Holiday> = [];
-  constructor() {}
+  constructor(httpService : HttpService) {}
 
   getHolidays(): Promise<any> {
     return new Promise((resolve, reject) => {

@@ -7,6 +7,8 @@ import { AddHolidayComponent } from './add-holiday/add-holiday.component';
 import { PlansComponent } from './plans/plans.component';
 import { PlanComponent } from './plan/plan.component';
 import { app_routes } from './app.routes';
+import { HttpService } from 'src/app/services/http.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,11 +19,12 @@ import { app_routes } from './app.routes';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule, 
     RouterModule.forRoot(
       app_routes
     )
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
