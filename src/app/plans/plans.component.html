@@ -1,7 +1,6 @@
 
+<p *ngIf="status_info" >{{status_info}}</p>
 <ul class="container">
   <li *ngFor="let holiday of holidays"><app-plan [holiday]="holiday" class="flx"></app-plan></li>
 </ul>
 
-<p *ngIf="holidays?.length===0" class="">Nie ma obecnie żadnych planow urlopowych</p>
-<p *ngIf="!holidays" class="">Trwa ładowanie danych...</p>

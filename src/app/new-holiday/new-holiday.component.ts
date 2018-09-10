@@ -9,26 +9,34 @@ import { HolidayService } from '../services/holiday.service';
 })
 export class NewHolidayComponent implements OnInit {
   private current_date = new Date().toISOString().split('T')[0];
-  private add_holiday_info = '';
-  private holiday_form = {
-    name: 'Konrad',
-    surename: 'Dzień',
-    team: 'IT',
-    from: this.current_date,
-    to: this.current_date,
-  }
+  private new_holiday_info = '';
+  private button_disabled = false;
+  private holiday_form = this.newForm();
   constructor(private holidayService: HolidayService) { }
 
   ngOnInit() {
   }
   addHoliday(): void {
-    this.add_holiday_info = 'Dodajawanie urlopu...';
+    this.new_holiday_info = 'Dodawanie urlopu...';
+    this.button_disabled = !this.button_disabled;
     const {name, surename, team, from, to} = this.holiday_form;
-    const new_holiday = new Holiday(name, surename, team, new Date(from), new Date(to));
+    const new_holiday = new Holiday(name, surename, team, from ? new Date(from) : undefined, to ? new Date(to) : undefined);
     this.holidayService.addHoliday(new_holiday).then(response => {
-      this.add_holiday_info = response;
-    }).catch(warning => {
-      this.add_holiday_info = warning;
+      this.new_holiday_info = response;
+      this.holiday_form = this.newForm();
+    }).catch(err => {
+      this.new_holiday_info = err;
+    }).finally(() => {
+      this.button_disabled = !this.button_disabled;
     });
+  }
+  private newForm() {
+    return  {
+      name: '',
+      surename: '',
+      team: '',
+      from: undefined,
+      to: undefined
+    };
   }
 }

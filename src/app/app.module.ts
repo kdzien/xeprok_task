@@ -1,3 +1,4 @@
+import './date-prototypes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -9,6 +10,9 @@ import { PlanComponent } from './plan/plan.component';
 import { app_routes } from './app.routes';
 import { HttpService } from 'src/app/services/http.service';
 import { HttpClientModule } from '@angular/common/http';
+import { shim } from 'promise.prototype.finally';
+shim();
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule, 
+    HttpClientModule,
     RouterModule.forRoot(
       app_routes
     )

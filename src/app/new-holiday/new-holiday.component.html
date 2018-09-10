@@ -29,6 +29,6 @@
       <input class="form-control" [(ngModel)]="holiday_form.to " min="{{current_date}}" name="holiday_form_dateto" type="date">
     </div>
   </div>
-  <button (click)="addHoliday()" type="button" class="btn btn-primary">ADD</button>
+  <button (click)="addHoliday()" type="button" class="btn btn-primary" [disabled]="button_disabled">Dodaj</button>
 </form>
-<p *ngIf="add_holiday_info">{{add_holiday_info}}</p>
+<p *ngIf="new_holiday_info">{{new_holiday_info}}</p>
