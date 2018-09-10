@@ -8,24 +8,29 @@ import { HttpService } from 'src/app/services/http.service';
 export class HolidaysServiceService {
 
   private holidays: Array<Holiday> = [];
-  constructor(httpService : HttpService) {}
+  constructor(private httpService: HttpService) {}
 
-  getHolidays(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      resolve(this.holidays);
-    });
+  getHolidays(): Promise<any>{
+    return new Promise((resolve,reject) => {
+      this.httpService.getHolidays().subscribe( holidays => {
+        this.holidays = holidays.map(holiday => new Holiday(holiday.name,holiday.surename,holiday.team, new Date(holiday.from), new Date(holiday.to)));
+        resolve(this.holidays)
+      })
+    })
   }
   addHoliday(holiday: Holiday): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (holiday.to < holiday.from) {
-        reject('Data do jest mniejsza niż data od');
-      }
-      if (this.checkCorrectivity(holiday, this.holidays)) {
-        this.holidays.push(holiday);
-        resolve('Dodałes urlop');
-      } else {
-        reject('Nie możesz wziąć urlopu w tym terminie');
-      }
+      this.getHolidays().then(holidays => {
+        if (holiday.to < holiday.from) {
+          reject('Data do jest mniejsza niż data od');
+        }
+        if (this.checkCorrectivity(holiday, this.holidays)) {
+          this.httpService.saveHoliday(holiday)
+          resolve('Dodałes urlop');
+        } else {
+          reject('Nie możesz wziąć urlopu w tym terminie');
+        }      
+      })
     });
   }
   private checkCorrectivity(new_holiday, holidays) {

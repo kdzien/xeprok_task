@@ -13,6 +13,7 @@ export class PlansComponent implements OnInit {
 
   ngOnInit() {
     this.holidayService.getHolidays().then(holidays => {
+      console.log(holidays)
       this.holidays = holidays;
     });
   }
