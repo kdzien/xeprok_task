@@ -8,7 +8,7 @@ import { HolidayService } from '../services/holiday.service';
   styleUrls: ['./new-holiday.component.css']
 })
 export class NewHolidayComponent implements OnInit {
-  private current_date = new Date().toISOString().split('T')[0];
+  private current_date = new Date().dateToString();
   private new_holiday_info = '';
   private button_disabled = false;
   private holiday_form = this.newForm();
@@ -32,11 +32,11 @@ export class NewHolidayComponent implements OnInit {
   }
   private newForm() {
     return  {
-      name: 'Konrad',
-      surename: 'Dzień',
-      team: 'IT',
-      from: '2018-09-12',
-      to: '2018-09-12'
+      name: '',
+      surename: '',
+      team: '',
+      from: undefined,
+      to: undefined
     };
   }
 }

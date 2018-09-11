@@ -30,14 +30,11 @@ export class HolidayService {
         } else {
           if (holiday.to < holiday.from) {
             return reject('Data do jest mniejsza niż data od');
-          }
-          if(holiday.from.checkWeekend(holiday.to)){
-            return reject('Urlop w weekend?')
-          }
-          if (holiday.from.isFromPast()) {
+          } else if (holiday.from.isWeekend(holiday.to)) {
+            return reject('Urlop w weekend?');
+          } else if (holiday.from.isFromPast()) {
             return reject('Wybrano datę z przeszłosci, lub dzisiejszą');
-          }
-          if (this.checkDateAvailability(holiday, this.holidays)) {
+          } else if (this.checkDateAvailability(holiday, this.holidays)) {
             this.httpService.saveHoliday(holiday).subscribe(data => {
               return resolve('Dodano urlop.');
             }, err => {
@@ -51,9 +48,11 @@ export class HolidayService {
     });
   }
   private checkDateAvailability(new_holiday, holidays) {
-    const date_available = holidays.filter(holiday => new_holiday.team === holiday.team)
-    .filter(holiday => 
-      holiday.from.toISOString().split('T')[0] === holiday.to.toISOString().split('T')[0] ? holiday.from.isBetween(new_holiday.from,new_holiday.to) :
+    const date_available =
+    holidays.filter(holiday =>
+      new_holiday.team === holiday.team)
+    .filter(holiday =>
+      holiday.from.dateToString() === holiday.to.dateToString() ? holiday.from.isBetween(new_holiday.from, new_holiday.to) :
       new_holiday.from.isBetween(holiday.from, holiday.to) || new_holiday.to.isBetween(holiday.from, holiday.to));
     return date_available.length === 0 ? true : false;
   }
