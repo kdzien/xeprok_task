@@ -1,6 +1,7 @@
 interface Date {
-  isBetween: (start: Date, from: Date, to: Date) => boolean;
+  isBetween: (from: Date, to: Date) => boolean;
   isFromPast: () => boolean;
+  checkWeekend: (date: Date) => boolean;
 }
 
 Date.prototype.isBetween = function(from, to) {
@@ -15,3 +16,9 @@ Date.prototype.isFromPast = function() {
   }
   return false;
 };
+Date.prototype.checkWeekend = function(date){
+  if(this.getDay() == 6 && date.getDay() == 0){
+    return true;
+  }
+  return false;
+}

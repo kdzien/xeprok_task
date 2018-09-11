@@ -32,11 +32,11 @@ export class NewHolidayComponent implements OnInit {
   }
   private newForm() {
     return  {
-      name: '',
-      surename: '',
-      team: '',
-      from: undefined,
-      to: undefined
+      name: 'Konrad',
+      surename: 'Dzień',
+      team: 'IT',
+      from: '2018-09-12',
+      to: '2018-09-12'
     };
   }
 }

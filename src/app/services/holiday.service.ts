@@ -26,22 +26,25 @@ export class HolidayService {
       this.getHolidays().then(holidays => {
         const check_result = this.checkFields(holiday);
         if (check_result.length !== 0) {
-          reject(`Uzupełnij brakujące pola: ${check_result.join(', ')}`);
+          return reject(`Uzupełnij brakujące pola: ${check_result.join(', ')}`);
         } else {
           if (holiday.to < holiday.from) {
-            reject('Data do jest mniejsza niż data od');
+            return reject('Data do jest mniejsza niż data od');
+          }
+          if(holiday.from.checkWeekend(holiday.to)){
+            return reject('Urlop w weekend?')
           }
           if (holiday.from.isFromPast()) {
-            reject('Wybrano datę z przeszłosci, lub dzisiejszą');
+            return reject('Wybrano datę z przeszłosci, lub dzisiejszą');
           }
           if (this.checkDateAvailability(holiday, this.holidays)) {
             this.httpService.saveHoliday(holiday).subscribe(data => {
-              resolve('Dodano urlop.');
+              return resolve('Dodano urlop.');
             }, err => {
-              reject(`Problem z połączeniem: ${err}`);
+              return reject(`Problem z połączeniem: ${err}`);
             });
           } else {
-            reject('Nie możesz wziąć urlopu w tym terminie.');
+            return reject('Nie możesz wziąć urlopu w tym terminie.');
           }
         }
       });
@@ -49,7 +52,9 @@ export class HolidayService {
   }
   private checkDateAvailability(new_holiday, holidays) {
     const date_available = holidays.filter(holiday => new_holiday.team === holiday.team)
-    .filter(holiday => new_holiday.from.isBetween(holiday.from, holiday.to) || new_holiday.to.isBetween(holiday.from, holiday.to));
+    .filter(holiday => 
+      holiday.from.toISOString().split('T')[0] === holiday.to.toISOString().split('T')[0] ? holiday.from.isBetween(new_holiday.from,new_holiday.to) :
+      new_holiday.from.isBetween(holiday.from, holiday.to) || new_holiday.to.isBetween(holiday.from, holiday.to));
     return date_available.length === 0 ? true : false;
   }
 
