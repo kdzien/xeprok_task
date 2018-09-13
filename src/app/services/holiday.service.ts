@@ -53,7 +53,9 @@ export class HolidayService {
       new_holiday.team === holiday.team)
     .filter(holiday =>
       holiday.from.dateToString() === holiday.to.dateToString() ? holiday.from.isBetween(new_holiday.from, new_holiday.to) :
-      new_holiday.from.isBetween(holiday.from, holiday.to) || new_holiday.to.isBetween(holiday.from, holiday.to));
+      (new_holiday.from.isBetween(holiday.from, holiday.to) || new_holiday.to.isBetween(holiday.from, holiday.to))
+      || (holiday.from.isBetween(new_holiday.from, new_holiday.to) || holiday.to.isBetween(new_holiday.from, new_holiday.to))
+    );
     return date_available.length === 0 ? true : false;
   }
 
