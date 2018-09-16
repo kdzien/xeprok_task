@@ -2,6 +2,7 @@ import { Holiday } from './../models/Holiday';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
+import './../date-prototypes';
 @Injectable({
   providedIn: 'root'
 })

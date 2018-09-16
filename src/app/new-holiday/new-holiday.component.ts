@@ -9,7 +9,7 @@ import { HolidayService } from '../services/holiday.service';
 })
 export class NewHolidayComponent implements OnInit {
   private current_date = new Date().dateToString();
-  private new_holiday_info = '';
+  private new_holiday_info = ' ';
   private button_disabled = false;
   private holiday_form = this.newForm();
   constructor(private holidayService: HolidayService) { }
