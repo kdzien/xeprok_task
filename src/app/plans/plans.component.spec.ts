@@ -16,8 +16,7 @@ describe('PlansComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PlansComponent, PlanComponent ],
       providers:[
-        HolidayService,
-        {provide: HttpService, useValue: spy}
+        {provide: HolidayService, useValue: spy}
       ]
     })
     .compileComponents();

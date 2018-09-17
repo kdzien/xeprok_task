@@ -1,6 +1,5 @@
 import { CORRECT_HOLIDAY } from './../test_data/mock-persons';
 import { HolidayService } from './../services/holiday.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewHolidayComponent } from './new-holiday.component';
@@ -20,26 +19,29 @@ describe('NewHolidayComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NewHolidayComponent ],
       imports: [FormsModule],
-      providers: [HttpClient, HttpHandler]
+      providers:[
+        {provide: HolidayService, useValue: spy}
+      ]
     }).compileComponents();
+    
     holiday_service_spy = TestBed.get(HolidayService);
   }));
 
   beforeEach(() => {
+    holiday_service_spy.addHoliday.and.returnValue(Promise.resolve(CORRECT_HOLIDAY));
     fixture = TestBed.createComponent(NewHolidayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
-  xit('should change value of add status after button click', () => {
+  it('should change value of add status after button click', () => {
     const button = fixture.debugElement.query(By.css('.btn')).nativeElement;
-    const statusInfo = fixture.debugElement.query(By.css('.statusInfo')).nativeElement;
-    expect(statusInfo.textContent).toBe(' ');
+    let statusInfo = fixture.debugElement.query(By.css('.statusInfo')).nativeElement;
     button.click();
     fixture.detectChanges();
-    expect(statusInfo).toBeTruthy();
+    expect(statusInfo.textContent.length).toBeGreaterThan(2);
   });
 });
