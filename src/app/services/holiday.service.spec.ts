@@ -34,20 +34,21 @@ describe('HolidayService', () => {
     });
   }));
   describe('should call addHoliday', () => {
-    it('and return value "Dodano urlop."', async(() => {
+    it('and return value "Dodano urlop." when new_holiday dates are correct and not interfere with other holidays', async(() => {
       holiday_service.addHoliday(correct_request_data).then((resp) => {
         expect(resp).toBe('Dodano urlop.');
       }).catch(err => {
+        expect(err).toBe('Dodano urlop.');
       });
     }));
-    it('and return value "Urlop w weekend?"', async(() => {
+    it('and return value "Urlop w weekend?" when new_holiday dates are weekend dates', async(() => {
       holiday_service.addHoliday(WEEKEND_HOLIDAY).then((resp) => {
         expect(resp).toBe('Urlop w weekend?');
       }).catch(err => {
         expect(err).toBe('Urlop w weekend?');
       });
     }));
-    it('and return value "Data z przeszlosci"', async(() => {
+    it('and return value "Data z przeszlosci" when one of new_holiday dates is from past', async(() => {
       holiday_service.addHoliday(PAST_DATE).then((resp) => {
         expect(resp).toBe('Wybrano datę z przeszłosci, lub dzisiejszą');
       }).catch(err => {
@@ -55,7 +56,8 @@ describe('HolidayService', () => {
       });
     }));
     WRONG_HOLIDAYS.forEach(elem => {
-      it(`and return value "Nie możesz wziąć urlopu w tym terminie." ${elem.from.dateToString()} - ${elem.to.dateToString()}`, async(() => {
+      it(`and return value "Nie możesz wziąć urlopu w tym terminie."
+      when someone else have holiday within this period ${elem.from.dateToString()} - ${elem.to.dateToString()}`, async(() => {
         holiday_service.addHoliday(elem).then(res => {
           expect(res).toBe('Nie możesz wziąć urlopu w tym terminie.');
         }).catch(err => {

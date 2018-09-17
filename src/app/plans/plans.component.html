@@ -1,5 +1,5 @@
 
-<p *ngIf="status_info" >{{status_info}}</p>
+<p class="statusInfo" *ngIf="status_info" >{{status_info}}</p>
 <ul class="container">
   <li *ngFor="let holiday of holidays"><app-plan [holiday]="holiday" class="flx"></app-plan></li>
 </ul>

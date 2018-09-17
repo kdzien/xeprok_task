@@ -23,7 +23,7 @@ describe('NewHolidayComponent', () => {
         {provide: HolidayService, useValue: spy}
       ]
     }).compileComponents();
-    
+
     holiday_service_spy = TestBed.get(HolidayService);
   }));
 
@@ -37,11 +37,12 @@ describe('NewHolidayComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should change value of add status after button click', () => {
+  it('should change value of add status after add_holiday button click and disable button', () => {
     const button = fixture.debugElement.query(By.css('.btn')).nativeElement;
-    let statusInfo = fixture.debugElement.query(By.css('.statusInfo')).nativeElement;
+    const statusInfo = fixture.debugElement.query(By.css('.statusInfo')).nativeElement;
     button.click();
     fixture.detectChanges();
+    expect(button.disabled).toBeTruthy();
     expect(statusInfo.textContent.length).toBeGreaterThan(2);
   });
 });
